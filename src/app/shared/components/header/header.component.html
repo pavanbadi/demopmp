@@ -25,7 +25,7 @@
     <!-- Places template -->
     <div *dxTemplate="let data of 'languageTemplate'">
       <dx-select-box [items]="languages" [value]="selectedLanguage" stylingMode="underlined"
-          [searchEnabled]="true" displayExpr="text" valueExpr="id"
+          [searchEnabled]="true" displayExpr="name" valueExpr="code"
           (onValueChanged)="onLanguageChanged($event)">
       </dx-select-box>
   </div>

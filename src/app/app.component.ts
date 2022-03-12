@@ -13,11 +13,18 @@ export class AppComponent  {
   }
 
   constructor(private authService: AuthService, private screen: ScreenService, public appInfo: AppInfoService) { 
-    config({ rtlEnabled : false})
+    this.setRtlEnabled();
   }
 
+  setRtlEnabled(){
+    var language = localStorage.getItem('language');
+    if(language==='ar'){
+      config({rtlEnabled:true});
+    } else {
+    config({rtlEnabled:false});
+    }
+  }
   
-
   isAuthenticated() {
     return this.authService.loggedIn;
   }

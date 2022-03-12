@@ -20,9 +20,6 @@ export class HeaderComponent implements OnInit {
   @Output()
   menuToggle = new EventEmitter<boolean>();
 
-  @Output()
-  SelectedLanguage : EventEmitter<number> = new EventEmitter<number>();
-
   @Input()
   menuToggleEnabled = false;
 
@@ -30,6 +27,7 @@ export class HeaderComponent implements OnInit {
   title!: string;
 
   user: IUser | null = { email: '' };
+  selectedLanguage : string | null ;
 
   userMenuItems = [{
     text: 'Profile',
@@ -47,16 +45,16 @@ export class HeaderComponent implements OnInit {
   }];
 
   languages  = [{
-    id: 1,
-    text: 'English'
+    code: 'en',
+    name: 'English'
   }, {
-    id: 2,
-    text : 'Arabic'
+    code: 'ar',
+    name: 'Arabic'
   }];
 
-  selectedLanguage = 1;
-
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { 
+    this.selectedLanguage = localStorage.getItem('language');
+  }
 
   ngOnInit() {
     this.authService.getUser().then((e) => this.user = e.data);
@@ -67,8 +65,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onLanguageChanged(e:any){
-    console.log(e.value);
-    
+    localStorage.setItem('language',e.value);
+    window.location.reload();
   }
 
 }
